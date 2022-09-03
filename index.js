@@ -3,6 +3,7 @@ import { createServer } from "http";
 import express from "express";
 import fs from "fs";
 import { faker } from "@faker-js/faker";
+import { nanoid } from "nanoid";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -37,7 +38,9 @@ wss.on("connection", function connection(ws) {
   const interval = setInterval(() => {
     const message = {
       user: faker.name.firstName(),
+      userId: nanoid(),
       message: faker.random.words(),
+      messageId: nanoid(),
     };
     ws.send(JSON.stringify(message));
     count += 1;
