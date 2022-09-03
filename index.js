@@ -17,6 +17,15 @@ const data = [];
 wss.on("connection", function connection(ws) {
   ws.on("message", function message(data) {
     console.log("received: %s", data);
+    let dataToBeSent = JSON.parse(data);
+    dataToBeSent = JSON.stringify(dataToBeSent);
+    ws.send(dataToBeSent, (err) => {
+      if (err) {
+        console.log(`Error occured!`);
+      } else {
+        console.log("Message sent");
+      }
+    });
   });
 
   ws.on("close", () => {
